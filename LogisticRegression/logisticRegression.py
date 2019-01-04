@@ -1,3 +1,4 @@
+# coding=utf-8
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -35,22 +36,47 @@ def sigmoid(z):
 
 def cost_function(theta, x, y):
     ''' cost fn is -l(theta) for you to minimize'''
+    print(-y * np.log(sigmoid(x @ theta)), '\n', np.shape(-y * np.log(sigmoid(x @ theta))), '\n',
+          type(-y * np.log(sigmoid(x @ theta))), '\n', np.shape(np.mat(-y * np.log(sigmoid(x @ theta)))), '\n',
+          np.mat(-y * np.log(sigmoid(x @ theta))), '\n', np.reshape(np.mat(-y * np.log(sigmoid(x @ theta))), (2, 50)))
+    # print((1 - y) * np.log(1 - sigmoid(x @ theta)))
     return np.mean(-y * np.log(sigmoid(x @ theta)) - (1 - y) * np.log(1 - sigmoid(x @ theta)))
 
 
-def gradient(theta, X, y):
+def gradient(theta, x, y):
     #     '''just 1 batch gradient'''
-    return (1 / len(X)) * X.T @ (sigmoid(X @ theta) - y)
+    return (1 / len(x)) * x.T @ (sigmoid(x @ theta) - y)
+
+
+def Decsent(theta, alpha, x, y):
+    # diff = np.dot(x, theta) - y
+    # gradient = (1 / len(x)) * x.T @ (sigmoid(x @ theta) - y)
+    # theta = theta - alpha * gradient
+    # i = 1
+    # while np.all(np.fabs(gradient) > 1e-5):  # 判断梯度精准度
+    #     diff = np.dot(x, theta) - y
+    #     gradient = (1 / len(x)) * x.T @ (sigmoid(x @ theta) - y)
+    #     theta = theta - alpha * gradient
+    #     i = i + 1
+    # print(i)
+    # print(gradient)
+
+    for i in range(1, 1000):
+        diff = np.dot(x, theta) - y
+        gradient = (1. / len(x)) * x.T @ (sigmoid(x @ theta) - y)
+        theta = theta - alpha * gradient
+
+    print(gradient)
+    print(theta)
+    return
 
 
 # X @ theta与X.dot(theta)等价
 
 
-theta = theta = np.zeros(3)
+theta = np.zeros(3)
 x = get_x(data)
 y = get_y(data)
-cost = cost_function(theta, x, y)
-print(cost)
-
-gradient(theta, x, y)
-print(gradient(theta, x, y))
+alpha = 0.001
+# Decsent(theta, alpha, x, y)
+cost_function(theta, x, y)
