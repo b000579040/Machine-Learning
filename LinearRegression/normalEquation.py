@@ -6,7 +6,7 @@ import matplotlib.pyplot as plot
 import seaborn as sns
 import pandas as pd
 
-data = pd.read_csv("ex1data.txt")
+data = pd.read_csv("ex1data1.txt")
 dateSet = np.loadtxt('ex1data1.txt', delimiter=',')
 
 x0 = dateSet[:, 0]
@@ -19,5 +19,7 @@ x1 = np.ones(m)
 x = np.vstack((x1, x0)).T
 y = y0.reshape(m, 1)
 
+print(x.shape, y.shape)
 # 正规方程公式 theta = (A.T @ A)-1 @ A.T @ Y
+# np.dot(np.linalg.inv(np.dot(x.T, x)), np.dot(x.T, y))
 print(np.dot(np.linalg.inv(np.dot(x.T, x)), np.dot(x.T, y)))

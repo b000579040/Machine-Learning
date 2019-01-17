@@ -2,8 +2,6 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
-from LinearRegression.linearRegression import gradientDescent
-from sklearn.linear_model import LinearRegression
 
 data = np.array([[-2.95507616, 10.94533252],
                  [-0.44226119, 2.96705822],
@@ -24,20 +22,46 @@ np.ones(m)
 plt.xlabel('X')
 plt.ylabel('y')
 
-# lin_reg = LinearRegression()
-# # lin_reg.fit(X, y)
-# # print(lin_reg.intercept_, lin_reg.coef_)  # [ 4.97857827] [[-0.92810463]]
-
 x1 = np.ones(m)
-X = np.vstack((np.mat(x1).T, X))
+X = np.hstack((np.mat(x1).T, x))
 # 正规方程公式 theta = (A.T @ A)-1 @ A.T @ Y
-theta = np.dot(np.linalg.inv(np.dot(x.T, x)), np.dot(x.T, y))
+# theta = np.dot(np.linalg.inv(np.dot(X.T, X)), np.dot(X.T, y))
+
+theta_Descent = np.array([1, 1]).reshape(2, 1)
+
+alpha = 0.01
+
+
+def gradientDescent(x, y, theta, alpha):
+    # 迭代i次，退出循环
+    # for i in range(1, 5000):
+    #     diff = np.dot(x, theta) - y
+    #     gradient = (1. / m) * np.dot(np.transpose(x), diff)
+    #     theta = theta - alpha * gradient
+    m = x.size
+    diff = np.dot(x, theta) - y
+    gradient = (1. / m) * np.dot(np.transpose(x), diff)
+    theta = theta - alpha * gradient
+    i = 1
+    while np.all(np.fabs(gradient) > 1e-5):  # 判断梯度精准度
+        diff = np.dot(x, theta) - y
+        gradient = (1. / m) * np.dot(np.transpose(x), diff)
+        theta = theta - alpha * gradient
+        i = i + 1
+    print(i)
+    print('gradient', gradient)
+    print('theta', theta)
+
+    return theta
+
+
+theta = gradientDescent(X, y, theta_Descent, alpha)
 
 X_plot = np.linspace(-3, 3, 1000).reshape(-1, 1)
-y_plot = x * theta[0] + theta[1]
+y_plot = np.dot(X_plot, theta[1].T) + theta[0]
 
-plt.plot(X_plot, y_plot, 'r-')
-plt.plot(X, y, 'b.')
+plt.plot(X_plot, y_plot)
+plt.plot(x, y, 'b.')
 plt.xlabel('X')
 plt.ylabel('y')
 
