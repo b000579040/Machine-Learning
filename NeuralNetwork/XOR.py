@@ -5,26 +5,34 @@ def sigmoid(z):
     return 1 / (1 + np.exp(-z))
 
 
-def and_function(x):
+def and_function(x1, x2):
     theta = np.matrix([-30, 20, 20])
-    x = np.mat(x)
-    x1 = np.mat(np.ones(1))
-    X = np.hstack((x1, x))
-    print(sigmoid(np.dot(theta, X.T)))
-    return sigmoid(np.dot(theta, X.T))
+    x = np.matrix([1, x1, x2])
+    # print(sigmoid(np.dot(theta, x.T)))
+    return sigmoid(np.dot(theta, x.T))
 
 
-def or_function(x):
+def or_function(x1, x2):
     theta = np.matrix([-10, 20, 20])
-    x = np.mat(x)
-    x1 = np.mat(np.ones(1))
-    X = np.hstack((x1, x))
-    print(sigmoid(np.dot(theta, X.T)))
-    return sigmoid(np.dot(theta, X.T))
+    x = np.matrix([1, x1, x2])
+    # print(sigmoid(np.dot(theta, x.T)))
+    return sigmoid(np.dot(theta, x.T))
 
 
-x = [0, 1]
+def nagtion_function(x):
+    theta = np.matrix([10, -20])
+    x = np.matrix([1, x])
+    # print(sigmoid(np.dot(theta, x.T)))
+    return sigmoid(np.dot(theta, x.T))
 
-and_function(x)
 
-or_function(x)
+def XOR_function(x1, x2):
+    # print(and_function(x1, x2))
+    # print(and_function(nagtion_function(x1), nagtion_function(x2)))
+    return or_function(and_function(x1, x2), and_function(nagtion_function(x1), nagtion_function(x2)))
+
+
+print(XOR_function(0, 1))
+print(XOR_function(1, 0))
+print(XOR_function(1, 1))
+print(XOR_function(0, 0))
