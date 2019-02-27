@@ -408,11 +408,11 @@ if __name__ == '__main__':
 
     # 获取训练集及标签
     print('start read transSet')
-    trainDataList, trainLabelList = loadData('../Mnist/mnist_train.csv')
+    trainDataList, trainLabelList = loadData('ex2data1.txt')
 
     # 获取测试集及标签
     print('start read testSet')
-    testDataList, testLabelList = loadData('../Mnist/mnist_test.csv')
+    testDataList, testLabelList = loadData('ex2data1.txt')
 
     # 初始化SVM类
     print('start init SVM')
