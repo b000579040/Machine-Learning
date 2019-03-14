@@ -17,6 +17,7 @@ import time
 import numpy as np
 import math
 import random
+import pandas as pd
 
 
 def loadData(fileName):
@@ -26,7 +27,7 @@ def loadData(fileName):
     :return: 数据集和标签集
     '''
     # 存放数据及标记
-    dataArr = [];
+    dataArr = []
     labelArr = []
     # 读取文件
     fr = open(fileName)
@@ -48,6 +49,14 @@ def loadData(fileName):
             labelArr.append(-1)
     # 返回数据集和标记
     return dataArr, labelArr
+
+
+def get_x(df):  # 读取特征
+    return np.array(df.iloc[0:60, 0:2]), np.array(df.iloc[60:, 0:2])  # 这个操作返回 ndarray,不是矩阵
+
+
+def get_y(df):  # 读取标签
+    return np.array(df.iloc[0:60, -1]), np.array(df.iloc[60:, -1])  # df.iloc[:, -1]是指df的最后一列
 
 
 class SVM:
@@ -404,15 +413,12 @@ class SVM:
 
 
 if __name__ == '__main__':
-    start = time.time()
+    start = time.time()  # 当前时间
 
-    # 获取训练集及标签
-    print('start read transSet')
-    trainDataList, trainLabelList = loadData('ex2data1.txt')
+    data = pd.read_csv('ex2data1.txt')
 
-    # 获取测试集及标签
-    print('start read testSet')
-    testDataList, testLabelList = loadData('ex2data1.txt')
+    trainDataList, testDataList = get_x(data)  # 获取训练集及标签 # 获取测试集及标签
+    trainLabelList, testLabelList = get_y(data)
 
     # 初始化SVM类
     print('start init SVM')

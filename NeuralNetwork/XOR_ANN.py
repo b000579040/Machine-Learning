@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Apr  4 10:47:51 2017
 
-@author: xin
-"""
 # Neural Network for XOR
 import numpy as np
 import matplotlib.pyplot as plt
