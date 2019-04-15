@@ -1,12 +1,14 @@
 import numpy as np
 
-X = np.array([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
+X = np.array([[1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]])
 y = np.array([[0, 1, 1, 0]]).T
+
+# 初始值初始化
 syn0 = 2 * np.random.random((3, 4)) - 1
 syn1 = 2 * np.random.random((4, 1)) - 1
-print(X, '\n', y)
-print(syn0)
-print(syn1)
+# print(X, '\n', y)
+# print(syn0)
+# print(syn1)
 for j in range(10000):
     l1 = 1 / (1 + np.exp(-(np.dot(X, syn0))))
     # print('l1\n', l1)
