@@ -69,9 +69,10 @@ def kMeans(dataSet, k, distMeans=distEclud, createCent=randCent):
 # print
 # clustAssing
 mat = sio.loadmat('./ex7data2.mat')
-data2 = pd.DataFrame(mat.get('X'), columns=['X1', 'X2'])
-data = list(mat.values())
-myCentroids, clustAssing = kMeans(data, 3)
+print(mat)
+# data2 = pd.DataFrame(mat.get('X'), columns=['X1', 'X2'])
+# data = list(mat.values())
+# myCentroids, clustAssing = kMeans(data, 3)
 # print
 # myCentroids
 # print
