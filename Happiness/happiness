@@ -2,7 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-data = pd.read_csv("./data/happiness_train_abbr.csv")
+train = pd.read_csv("./data/happiness_train_abbr.csv")
+test = pd.read_csv("./data/happiness_test_abbr.csv")
 
 # 显示所有列
 pd.set_option('display.max_columns', None)
@@ -10,11 +11,13 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 # 设置value的显示长度为100，默认为50
 pd.set_option('display.width', 100)
-# print(data.head())
 
-happiness = data["happiness"].values
+# 删除训练集中无效的标签对应的数据
+train = train.loc[train['happiness'] != -8]
+print(train.shape)
+for i in range(len(train)):
+    if np.isnan(train['happiness'][i]):
+        train = train.drop(i)
+print(train.shape)
 
-plt.hist(happiness, 50, density=True, facecolor='g', alpha=0.75)
-
-plt.show()
-
+# features = train.corr()['happiness'][abs(train.corr()['happiness']) > 0.05]
